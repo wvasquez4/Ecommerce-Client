@@ -6,12 +6,23 @@ export class Token{
         localStorage.setItem(ENV.TOKEN, token);
     }
 
-    // getToken(){
-    //     return localStorage.getItem(ENV.TOKEN);
-    // }
+    getToken(){
+        return localStorage.getItem(ENV.TOKEN);
+    }
 
-    // hasExpired(token){
-    //     const tokenDecode = jwtDecode(token);
-        
-    // }
+    removeToken(){
+        localStorage.removeItem(ENV.TOKEN);
+    }
+
+    hasExpired(token){
+        const tokenDecode = jwtDecode(token);
+        const expireDate = tokenDecode.exp * 1000;
+        const currentDate = new Date().getDate();
+
+        if (currentDate > expireDate) {
+            return true;
+        }
+
+        return false;
+    }
 }
